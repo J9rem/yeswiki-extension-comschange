@@ -17,7 +17,7 @@ use YesWiki\Comschange\Entity\Event;
 use YesWiki\Comschange\Service\EventDispatcher;
 use YesWiki\Core\Service\AclService;
 use YesWiki\Core\Service\DbService;
-use YesWiki\Comschange\Service\Mailer;
+use YesWiki\Core\Service\Mailer;
 use YesWiki\Core\Service\PageManager;
 use YesWiki\Core\Service\TemplateEngine;
 use YesWiki\Core\Service\UserManager;
@@ -369,7 +369,7 @@ class CommentService
                 if (!empty($parentComment['owner'])) {
                     $owner = $this->userManager->getOneByName($parentComment['owner']);
                     if (!empty($owner) && !empty($loggedUser) && $owner['email'] != $loggedUser['email']) {
-                        $baseUrl = $this->mailer->getBaseUrl();
+                        $baseUrl = $this->getBaseUrl();
                         $formattedData = [
                             'baseUrl' => $baseUrl,
                             'parentPage' => $parentPage,
@@ -420,5 +420,10 @@ class CommentService
             $foundTags[] = $commentTag;
             return $this->getParentPage($page['comment_on'], $foundTags);
         }
+    }
+
+    public function getBaseUrl(): string
+    {
+        return preg_replace('/(\\/wakka\\.php\\?wiki=|\\/\\?wiki=|\\/\\?|\\/)$/m', '', $this->params->get('base_url')) ;
     }
 }

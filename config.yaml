@@ -7,3 +7,11 @@ services:
     resource: 'services/*'
   YesWiki\Comschange\Controller\:
     resource: 'controllers/*'
+ 
+  # replace usage of Core Comment Service by comschange one 
+  # to force registration of event listeners
+  # ignore if core CommentService is not existing
+  YesWiki\Comschange\Service\CommentService:
+    decorates: YesWiki\Core\Service\CommentService
+    decoration_on_invalid: ignore
+    arguments: ['@.inner']
