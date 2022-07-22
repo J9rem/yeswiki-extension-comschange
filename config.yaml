@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    autowire: true
+    public: true
+
+  YesWiki\Comschange\Service\:
+    resource: 'services/*'
+  YesWiki\Comschange\Controller\:
+    resource: 'controllers/*'
