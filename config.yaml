@@ -14,3 +14,7 @@ services:
   YesWiki\Comschange\Service\CommentService:
     decorates: YesWiki\Core\Service\CommentService
     decoration_on_invalid: ignore
+    tags:
+      - { name: yeswiki.event_subscriber }
+    calls: 
+      - registerSubscribers: []
