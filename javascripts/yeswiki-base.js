@@ -52,3 +52,17 @@ $('#commentsTableDeleteModal.modal').on('shown.bs.modal',function(event){
     });
   }
 });
+
+function appendChar(target){
+  let char = target.innerText;
+  let form = target.parentNode;
+  while (!['BODY','FORM'].includes(form.tagName)) {
+    form = form.parentNode
+  }
+  if (form.tagName == "FORM"){
+    let textArea = form.querySelector('textarea');
+    if (textArea){
+      textArea.value += char;
+    }
+  }
+};

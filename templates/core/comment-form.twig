@@ -1,0 +1,60 @@
+{# # This file is part of the YesWiki Extension comschange.
+# Authors : see README.md file that was distributed with this source code.
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code. #}
+
+{{ include_css('tools/comschange/styles/coms-change.css') }}
+{{ include_javascript('tools/comschange/javascripts/yeswiki-base.js') }}
+
+<form id="post-comment" action="{{ formlink }}" method="POST">
+	<input type="hidden" name="pagetag" value="{{ pagetag }}">
+	<div class="form-group">
+		<label>{{ _t('YW_ADD_COMMENT') }}</label>
+		<div class="append-special-chars">
+			<span>{{ _t('COMMENT_CLICK_TO_APPEND') }}&nbsp;</span>
+			{# &#10004; U+2714 HEAVY CHECK MARK #}
+			{# &#9989; U+2705 WHITE HEAVY CHECK MARK #}
+			{# &#9996; U+270C VICTORY HAND #}
+			{# &#10067; U+2753 BLACK QUESTION MARK ORNAMENT #}
+			{# &#10071; U+2757 HEAVY EXCLAMATION MARK SYMBOL #}
+			{# &#10084; U+2764 HEAVY BLACK HEART #}
+			{# &#128156; U+1F49C PURPLE HEART #}
+			{# &#129303; U+1F917 HUGGING FACE #}
+			{# &#128077; U+1F44D THUMBS UP SIGN #}
+			{# &#128578; U+1F642 SLIGHTLY SMILING FACE #}{# https://utf8-icons.com/subset/emoticons #}
+			{# &#128521; U+1F609 WINKING FACE #}
+			{# &#128519; U+1F607 SMILING FACE WITH HALO #}
+			{# &#128526; U+1F60E SMILING FACE WITH SUNGLASSES #}
+			{# &#128518; U+1F606 SMILING FACE WITH OPEN MOUTH AND #}
+			{# &#129315; U+1F923 ROLLING ON THE FLOOR LAUGHING #}
+			{# &#128579; U+1F643 UPSIDE-DOWN FACE #}
+			{# &#129300; U+1F914 THINKING FACE #}
+			{# &#128640; U+1F680 ROCKET #}
+			{% for icon in [
+				 '&#9989;',
+				 '&#9996;',
+				'&#10067;',
+				'&#10071;',
+				'&#128156;',
+				'&#129303;',
+				'&#128077;',
+				'&#128578;',
+				'&#128521;',
+				'&#128519;',
+				'&#128526;',
+				'&#128518;',
+				'&#129315;',
+				'&#128579;',
+				'&#129300;',
+				'&#128640;'
+			] %}
+				<span class="btn btn-xs btn-default" onclick="appendChar(this)">{{ icon|raw }}</span>
+			{% endfor %}
+		</div>
+		<textarea name="body" class="form-control" rows="3" placeholder="{{ _t('YW_WRITE_COMMENT_HERE') }}"></textarea>
+	</div>
+	{{ hashcash|raw }}
+	<button class="btn-post-comment btn btn-primary" name="action" value="addcomment">
+		{{ _t('SAVE') }}
+	</button>
+</form>

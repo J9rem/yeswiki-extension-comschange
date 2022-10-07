@@ -33,4 +33,7 @@ return [
    'COMMENT_NEW_COMMENT_MESSAGE' => 'Un nouveau commentaire a été écrit par %{user} sur la page %{tag} sur le site [%{site}].',
    'COMMENT_NEW_COMMENT_ANSWER_MESSAGE' => 'Une nouvelle réponse a été écrite par %{user} à votre commentaire sur la page %{tag} sur le site [%{site}].',
 
+   // templates/comment-form.twig
+   'COMMENT_CLICK_TO_APPEND' => 'Cliquer pour ajouter &#9654;',
+
 ];
