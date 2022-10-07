@@ -31,7 +31,7 @@
           <td>{{ format(com.body)|raw  }}</td>
           <td>{{ com.owner }}</td>
           <td>{{ com.tag }}</td>
-          <td><a class="new-window" href="{{ url({tag:com.comment_on}) }}">{{ com.comment_on }}</a></td>
+          <td>{% set tagAnchor = com.parentTag ?? com.comment_on %}<a class="new-window" href="{{ url({tag:tagAnchor}) }}">{{ tagAnchor }}</a></td>
           <td>
             {# if admin or comment's owner #}
             {% if hasAcl(com.owner) %} 
