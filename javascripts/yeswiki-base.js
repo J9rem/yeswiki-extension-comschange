@@ -62,7 +62,16 @@ function appendChar(target){
   if (form.tagName == "FORM"){
     let textArea = form.querySelector('textarea');
     if (textArea){
-      textArea.value += char;
+      let pos = textArea.selectionStart;
+      if (typeof pos !== "number" || pos < 0){
+        textArea.value += char
+      } else {
+        let oldValue = textArea.value
+        textArea.value = oldValue.slice(0,pos)+char+oldValue.slice(pos);
+        textArea.selectionStart = pos+1
+        textArea.selectionEnd = pos+1
+        textArea.focus();
+      }
     }
   }
 };
