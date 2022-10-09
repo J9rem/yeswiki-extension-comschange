@@ -75,3 +75,19 @@ function appendChar(target){
     }
   }
 };
+
+$(document).ready(function(){
+  
+  $('.comment-container #comment-block').on("hide.bs.collapse", function(){
+    $(this).siblings('.comment-display-btn').each(function(){
+      $(this).find('.comment-display-btn-hide').hide();
+      $(this).find('.comment-display-btn-see').show();
+    });
+  });
+  $('.comment-container #comment-block').on("show.bs.collapse", function(){
+    $(this).siblings('.comment-display-btn').each(function(){
+      $(this).find('.comment-display-btn-see').css('display','none');
+      $(this).find('.comment-display-btn-hide').css('display','');
+    });
+  });
+});

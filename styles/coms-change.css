@@ -16,3 +16,11 @@
 .append-special-chars span.btn {
   background-color: lightyellow;
 }
+
+.collapse.comment-display:not(.in) {
+  display: block !important;
+  max-height: 15vw;
+  overflow-y: hidden;
+  opacity: 0.8;
+  height: 15vw !important;
+}

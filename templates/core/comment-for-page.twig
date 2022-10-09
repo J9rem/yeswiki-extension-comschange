@@ -3,20 +3,32 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code. #}
 
+{{ include_css('tools/comschange/styles/coms-change.css') }}
+{{ include_javascript('tools/comschange/javascripts/yeswiki-base.js') }}
+
 {% if commentsClosed %}
   {% if coms %}
     {{ coms|raw }}
     <div class="alert alert-info comments-closed-info">{{ _t('COMMENTS_CURRENTLY_CLOSED') }}.</div>
   {% endif %}
 {% else %}
-  {{ coms|raw }}
-  {% if form %}
-    {{ form|raw }}
-  {% elseif not user %}
-    <div class="comments-connect-info">
-      <a href="#LoginModal" role="button" data-toggle="modal"><i class="fa fa-user"></i>{{ _t('COMMENT_LOGIN') }}.</a>
+  <div class="comment-container">
+    <div id="comment-block" class="collapse comment-display">
+      {{ coms|raw }}
+      {% if form %}
+        {{ form|raw }}
+      {% elseif not user %}
+        <div class="comments-connect-info">
+          <a href="#LoginModal" role="button" data-toggle="modal"><i class="fa fa-user"></i>{{ _t('COMMENT_LOGIN') }}.</a>
+        </div>
+      {% else %}
+        <div class="alert alert-info comments-acls-info">{{ _t('COMMENT_NOT_ENOUGH_RIGHTS') }}</div>
+      {% endif %}
     </div>
-  {% else %}
-    <div class="alert alert-info comments-acls-info">{{ _t('COMMENT_NOT_ENOUGH_RIGHTS') }}</div>
-  {% endif %}
+    
+    <button type="button" class="btn btn-secondary-2 btn-xs comment-display-btn" data-toggle="collapse" data-target="#comment-block">
+      <span class="comment-display-btn-see"><span class="fas fa-angle-down"></span> {{ _t('COMMENT_SEE_COMMENTS') }}</span>
+      <span class="comment-display-btn-hide" style="display:none;"><span class="fas fa-angle-up"></span> {{ _t('COMMENT_HIDE_COMMENTS') }}</span>
+    </button>
+  </div>
 {% endif %}

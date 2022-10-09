@@ -36,4 +36,8 @@ return [
    // templates/comment-form.twig
    'COMMENT_CLICK_TO_APPEND' => 'Cliquer pour ajouter &#9654;',
 
+   // templates/comment-fo-page.twig
+   'COMMENT_SEE_COMMENTS' => 'Voir les commentaires',
+   'COMMENT_HIDE_COMMENTS' => 'Masquer les commentaires',
+
 ];
