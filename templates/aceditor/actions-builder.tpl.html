@@ -8,26 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+use YesWiki\Aceditor\Service\ActionsBuilderService;
 
+$actionsBuilderService = $this->wiki->services->get(ActionsBuilderService::class);
+$actionsBuilderService->setPreviousData($data ?? null);
+$data = $actionsBuilderService->getData();
 
- use YesWiki\Core\Service\AssetsManager;
+$paths = $this->twigLoader->getPaths("aceditor");
+$curExtDirName = basename(dirname(dirname(dirname(__FILE__))));
+$curDir = "tools/$curExtDirName/templates/aceditor";
 
- if (isset($data) &&
-     isset($data['action_groups']) &&
-     isset($data['action_groups']['management']) &&
-     isset($data['action_groups']['management']['actions'])){
-     $data['action_groups']['management']['actions']['commentstable'] = [
-         'label' => _t('AB_management_commentstable_label'),
-     ];
- }
- 
- $paths = $this->twigLoader->getPaths("aceditor");
- $curExtDirName = basename(dirname(dirname(dirname(__FILE__))));
- $curDir = "tools/$curExtDirName/templates/aceditor";
- 
- // render next following custom actions-builder.tpl.html
- $curPos = array_search($curDir,$paths);
- if ($curPos !== false) {
+// render next following custom actions-builder.tpl.html
+$curPos = array_search($curDir,$paths);
+if ($curPos !== false) {
     for ($i=($curPos+1); $i < count($paths); $i++) { 
         if ($paths[$i] != $curDir && $this->hasTemplate("{$paths[$i]}/actions-builder.tpl.html")){
             echo $this->render("{$paths[$i]}/actions-builder.tpl.html",compact(['data']));
