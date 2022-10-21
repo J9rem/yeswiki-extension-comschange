@@ -24,3 +24,13 @@
   opacity: 0.8;
   height: 15vw !important;
 }
+#comments-table-action .comments-table-break-word-column {
+  overflow-wrap: break-word;
+  max-width: 170px;
+}
+
+@media (max-width: 801px){
+  #comments-table-action .comments-table-break-word-column {
+    max-width: 120px;
+  }
+}
