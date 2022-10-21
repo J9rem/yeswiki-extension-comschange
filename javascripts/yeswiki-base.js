@@ -78,6 +78,17 @@ function appendChar(target){
 
 $(document).ready(function(){
   
+  $(".comment-container #comment-block.collapse.comment-display").on ("click",function(){
+    if (!$(this).hasClass('in') && $(this).hasClass('collapse') && $(this).hasClass('comment-display')){
+      $(this).siblings('.comment-display-btn').click();
+    }
+  });  
+  $(".comment-container #comment-block.collapse.comment-display a,.comment-container #comment-block.collapse.comment-display .btn").on ("click",function(){
+    let parent = $(this).closest('.collapse');
+    if (!$(parent).hasClass('in') && $(parent).hasClass('collapse') && $(parent).hasClass('comment-display')){
+      $(parent).siblings('.comment-display-btn').click();
+    }
+  });
   $('.comment-container #comment-block').on("hide.bs.collapse", function(){
     $(this).siblings('.comment-display-btn').each(function(){
       $(this).find('.comment-display-btn-hide').hide();

@@ -320,6 +320,11 @@ class CommentService implements EventSubscriberInterface
             $comments = $this->loadComments($tag);
             $coms = $this->getCommentList($tag, true, $comments);
             $acl = $aclsService->load($tag, 'comment');
+            $paramComments = $this->params->get('comments');
+            $toggleLimit = (!empty($paramComments['toggleLimit']) && is_scalar($paramComments['toggleLimit']) && intval($paramComments['toggleLimit']) >= 2)
+                ? intval($paramComments['toggleLimit'])
+                : 2;
+            $nbComs = (empty($coms) || !preg_match_all("/class=\"yw-comment\"/i", $coms, $matches)) ? 0 : count($matches[0]);
             $options = (!empty($acl['list']) && $acl['list']  == 'comments-closed')
                 ? [
                     'commentsClosed' => true,
@@ -331,7 +336,8 @@ class CommentService implements EventSubscriberInterface
                     'commentsClosed' => false,
                     'coms' => $coms,
                     'user' => ($hasAccessComment) ? null : $this->wiki->GetUser(),
-                    'form' => ($hasAccessComment) ? $this->getCommentForm($tag) : ""
+                    'form' => ($hasAccessComment) ? $this->getCommentForm($tag) : "",
+                    'toggleComments' => ($nbComs > $toggleLimit)
                 ];
             $output = $this->wiki->render('@core/comment-for-page.twig', $options);
         }

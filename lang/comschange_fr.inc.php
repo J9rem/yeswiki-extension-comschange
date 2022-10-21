@@ -11,6 +11,10 @@
 
 return [
 
+  // core/actions/EditConfigAction.php
+  'EDIT_CONFIG_GROUP_COMSCHANGE' => 'Gestion des commentaires',
+  'EDIT_CONFIG_HINT_COMMENTS[TOGGLELIMIT]' => 'Nombre de commentaires à partir duquel il faut réplier la zone (minimum 2)',
+
   // actions/MyCommentsAction.php
   'COMMENT_RESERVED_TO_CONNECTED' => 'Veuillez vous connecter pour pouvoir utiliser l\'action "{{mycomments}}" !',
 

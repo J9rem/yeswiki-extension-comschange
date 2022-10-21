@@ -13,7 +13,7 @@
   {% endif %}
 {% else %}
   <div class="comment-container">
-    <div id="comment-block" class="collapse comment-display">
+    <div id="comment-block" {% if toggleComments %}class="collapse comment-display"{% endif %}>
       {{ coms|raw }}
       {% if form %}
         {{ form|raw }}
@@ -25,10 +25,11 @@
         <div class="alert alert-info comments-acls-info">{{ _t('COMMENT_NOT_ENOUGH_RIGHTS') }}</div>
       {% endif %}
     </div>
-    
-    <button type="button" class="btn btn-secondary-2 btn-xs comment-display-btn" data-toggle="collapse" data-target="#comment-block">
-      <span class="comment-display-btn-see"><span class="fas fa-angle-down"></span> {{ _t('COMMENT_SEE_COMMENTS') }}</span>
-      <span class="comment-display-btn-hide" style="display:none;"><span class="fas fa-angle-up"></span> {{ _t('COMMENT_HIDE_COMMENTS') }}</span>
-    </button>
+    {% if toggleComments %}
+      <button type="button" class="btn btn-secondary-2 btn-xs comment-display-btn" data-toggle="collapse" data-target="#comment-block">
+        <span class="comment-display-btn-see"><span class="fas fa-angle-down"></span> {{ _t('COMMENT_SEE_COMMENTS') }}</span>
+        <span class="comment-display-btn-hide" style="display:none;"><span class="fas fa-angle-up"></span> {{ _t('COMMENT_HIDE_COMMENTS') }}</span>
+      </button>
+    {% endif %}
   </div>
 {% endif %}
