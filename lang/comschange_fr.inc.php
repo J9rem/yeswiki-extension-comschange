@@ -21,6 +21,7 @@ return [
 
    // templates/aceditor/actions-builder.tpl.html
    "AB_management_commentstable_label" => "Table des commentaires",
+   "AB_management_mycomments_label" => "Mes commentaires",
 
 
    'COMMENT_DELETE' => 'Supprimer un commentaire',

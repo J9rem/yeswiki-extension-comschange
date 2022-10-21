@@ -54,6 +54,9 @@ trait ActionsBuilderServiceCommon
                 $this->data = $this->previousData;
             }
             if (isset($this->data['action_groups']['management']['actions'])) {
+                $this->data['action_groups']['management']['actions']['mycomments'] = [
+                    'label' => _t('AB_management_mycomments_label'),
+                ];
                 $this->data['action_groups']['management']['actions']['commentstable'] = [
                     'label' => _t('AB_management_commentstable_label'),
                 ];
