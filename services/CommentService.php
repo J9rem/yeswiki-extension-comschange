@@ -22,7 +22,7 @@ use YesWiki\Core\Service\DbService;
 use YesWiki\Core\Service\Mailer;
 use YesWiki\Core\Service\PageManager;
 use YesWiki\Core\Service\TemplateEngine;
-use YesWiki\Core\Service\YesWikiEventCompilerPass;
+use YesWiki\Core\YesWikiEventCompilerPass;
 use YesWiki\Core\Service\UserManager;
 use YesWiki\Security\Service\HashCashService;
 use YesWiki\Wiki;
