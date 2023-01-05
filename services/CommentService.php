@@ -530,7 +530,10 @@ class CommentService implements EventSubscriberInterface
             $containerBuilder = $this->wiki->services;
             if ($containerBuilder && $containerBuilder instanceof ContainerBuilder) {
                 // find all service IDs with the yeswiki.event_subscriber tag
-                $taggedServices = $containerBuilder->findTaggedServiceIds('yeswiki.event_subscriber');
+                $taggedServices = array_merge(
+                    $containerBuilder->findTaggedServiceIds('yeswiki.event_subscriber'),
+                    $containerBuilder->findTaggedServiceIds('yeswiki.event_subscriber_alt')
+                );
 
                 foreach ($taggedServices as $id => $tags) {
                     // add the service to the EventDispatcher service

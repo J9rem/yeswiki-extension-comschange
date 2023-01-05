@@ -23,7 +23,7 @@ services:
     decorates: YesWiki\Core\Service\CommentService
     decoration_on_invalid: ignore
     tags:
-      - { name: yeswiki.event_subscriber }
+      - { name: yeswiki.event_subscriber_alt }
     calls: 
       - registerSubscribers: []
 
