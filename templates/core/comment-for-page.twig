@@ -7,23 +7,13 @@
 {{ include_javascript('tools/comschange/javascripts/yeswiki-base.js') }}
 
 {% if commentsClosed %}
-  {% if coms %}
-    {{ coms|raw }}
-    <div class="alert alert-info comments-closed-info">{{ _t('COMMENTS_CURRENTLY_CLOSED') }}.</div>
-  {% endif %}
+  {{ include('templates/comment-for-page.twig') }}
 {% else %}
+  {% set nbComs = (coms is empty or not (coms matches "/class=\"yw-comment\"/i")) ? 0 : (coms|split("class=\"yw-comment\"")|length - 1) %}
+  {% set toggleComments = (config.comments.toggleLimit > 1 and nbComs > config.comments.toggleLimit) %}
   <div class="comment-container">
     <div id="comment-block" {% if toggleComments %}class="collapse comment-display"{% endif %}>
-      {{ coms|raw }}
-      {% if form %}
-        {{ form|raw }}
-      {% elseif not user %}
-        <div class="comments-connect-info">
-          <a href="#LoginModal" role="button" data-toggle="modal"><i class="fa fa-user"></i>{{ _t('COMMENT_LOGIN') }}.</a>
-        </div>
-      {% else %}
-        <div class="alert alert-info comments-acls-info">{{ _t('COMMENT_NOT_ENOUGH_RIGHTS') }}</div>
-      {% endif %}
+      {{ include('templates/comment-for-page.twig') }}
     </div>
     {% if toggleComments %}
       <button type="button" class="btn btn-secondary-2 btn-xs comment-display-btn" data-toggle="collapse" data-target="#comment-block">
