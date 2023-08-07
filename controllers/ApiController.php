@@ -20,10 +20,11 @@ class ApiController extends YesWikiController
         // fast access for one entry
         if ($this->isEntryViewFastAccess($selectedEntries, $_GET)) {
             $entryId = explode(',', $selectedEntries)[0];
-            if ($this->getService(AclService::class)->hasAccess('read', $entryId)) {
+            $aclService = $this->getService(AclService::class);
+            if ($aclService->hasAccess('read', $entryId)) {
                 $html = $this->getService(EntryController::class)->view($entryId, '', 1);
                 $renderedComments = $this->getService(CommentService::class)->renderCommentsForPage($entryId);
-                if (!empty($renderedComments)){
+                if (!empty(trim($renderedComments))){
                     $renderedComments = preg_replace(
                         '/(href="[^ ]+)api\/pages\/[^\/]+\/comments"/',
                         "$1$entryId\"",
@@ -42,21 +43,21 @@ class ApiController extends YesWikiController
                         HTML,
                         $renderedComments
                     );
-                    $match = [];
-                    if (preg_match('/(<div class="clearfix"><\/div>\s*<div class="BAZ_fiche_info">)/',$html,$match)){
-                        $pos = strrpos($html,$match[0]);
-                        $html = substr($html,0,$pos)
-                            .$renderedComments
-                            .substr($html,$pos);
-                    } else {
-                        $match = [];
-                        if (preg_match('/(<\/div>\s*)$/',$html,$match)){
-                            $pos = strrpos($html,$match[0]);
-                            $html = substr($html,0,$pos)
-                                .$renderedComments
-                                .substr($html,$pos);
-                        }
-                    }
+                }
+                $match = [];
+                $match_bis = [];
+                $anchor = preg_match('/(<div class="clearfix"><\/div>\s*<div class="BAZ_fiche_info">)/',$html,$match)
+                    ? $match[0]
+                    : (
+                        preg_match('/(<\/div>\s*)$/',$html,$match_bis)
+                        ? $match_bis[0]
+                        : ''
+                    );
+                if (!empty($anchor)){
+                    $pos = strrpos($html,$anchor);
+                    $html = substr($html,0,$pos)
+                        .$renderedComments
+                        .substr($html,$pos);
                 }
                 return new ApiResponse(empty($html) ? null : [$entryId => ['html_output' => $html]]);
             }
