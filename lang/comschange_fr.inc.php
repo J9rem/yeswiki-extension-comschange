@@ -22,4 +22,7 @@ return [
   'COMMENT_SEE_COMMENTS' => 'Voir les commentaires',
   'COMMENT_HIDE_COMMENTS' => 'Masquer les commentaires',
 
+  // APiController
+  'COMMENTS_ADD_COMMENT' => 'Ajouter un commentaire',
+
 ];

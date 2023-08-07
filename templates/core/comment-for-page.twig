@@ -6,14 +6,27 @@
 {{ include_css('tools/comschange/styles/coms-change.css') }}
 {{ include_javascript('tools/comschange/javascripts/yeswiki-base.js') }}
 
+{% set chainOfTemplates = [
+  "custom/templates/core/comment-for-page.twig",
+  "templates/comment-for-page.twig"
+] %}
+
 {% if commentsClosed %}
-  {{ include('templates/comment-for-page.twig') }}
+  {{ include(chainOfTemplates) }}
 {% else %}
   {% set nbComs = (coms is empty or not (coms matches "/class=\"yw-comment\"/i")) ? 0 : (coms|split("class=\"yw-comment\"")|length - 1) %}
   {% set toggleComments = (config.comments.toggleLimit > 1 and nbComs > config.comments.toggleLimit) %}
   <div class="comment-container">
     <div id="comment-block" {% if toggleComments %}class="collapse comment-display"{% endif %}>
-      {{ include('templates/comment-for-page.twig') }}
+      {% if isInIframe or url({params:{}})|slice(-7) == '/iframe'%}
+        {{ include(chainOfTemplates)|replace({
+          ('<a href="#LoginModal" role="button" data-toggle="modal"><i class="fa fa-user"></i>'~_t('COMMENT_LOGIN') ~'.</a>'):
+            "<b>#{ _t('COMMENT_LOGIN') }.</b><br/>" ~
+            format("{{login template=\"horizontal.twig\" lostpasswordurl=\"?MotDePassePerdu/iframe\" signupurl=\"0\"}}")
+        })|raw }}
+      {% else %}
+        {{ include(chainOfTemplates) }}
+      {% endif %}
     </div>
     {% if toggleComments %}
       <button type="button" class="btn btn-secondary-2 btn-xs comment-display-btn" data-toggle="collapse" data-target="#comment-block">
